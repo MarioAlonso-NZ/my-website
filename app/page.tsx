@@ -1,69 +1,85 @@
-import Image from "next/image";
+import React from 'react';
+import Link from 'next/link';
+import { LineChart } from 'lucide-react';
 
-export default function Home() {
+export default function ArcadeHomeCards() {
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert h-5 w-[100px]"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the{" "}
-            <code className="rounded bg-black/[.06] px-1.5 py-0.5 font-mono text-[0.9em] dark:bg-white/[.08]">
-              page.tsx
-            </code>{" "}
-            file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
+    <main className="min-h-screen bg-slate-950 text-slate-100 px-6 py-16 max-w-5xl mx-auto font-sans flex flex-col justify-center">
+      {/* Cabecera */}
+      <div className="text-center mb-12">
+        <span className="px-3 py-1 rounded-full bg-cyan-500/10 text-cyan-400 text-xs uppercase tracking-widest font-semibold border border-cyan-500/20">
+          Jop's Knowledge Arcade
+        </span>
+        <h1 className="text-4xl md:text-5xl font-extrabold tracking-tight text-white mt-4">
+          Elige tu camino de aprendizaje
+        </h1>
+        <p className="text-slate-400 text-sm mt-2 max-w-lg mx-auto">
+          Selecciona una tecnología para explorar sus módulos, notas y conceptos interactivos.
+        </p>
+      </div>
+
+      {/* Contenedor de las dos tarjetas (React y Python) */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-3xl mx-auto w-full">
+
+        {/* TARJETA 1: REACT */}
+        <Link href="/courses/react" className="group">
+          <div className="bg-slate-900 border border-slate-800 hover:border-cyan-500 rounded-3xl p-8 shadow-2xl transition-all duration-300 transform group-hover:-translate-y-2 group-hover:shadow-cyan-500/10 flex flex-col items-center text-center h-full">
+            <div className="w-16 h-16 rounded-2xl bg-cyan-500/10 text-cyan-400 flex items-center justify-center text-3xl font-bold mb-6 border border-cyan-500/20 group-hover:scale-110 transition">
+              ⚛️
+            </div>
+            <h2 className="text-2xl font-bold text-white mb-2 group-hover:text-cyan-400 transition">
+              React
+            </h2>
+            <p className="text-slate-400 text-sm leading-relaxed mb-6">
+              Componentes, hooks, renderizado interactivo y arquitectura frontend moderna.
+            </p>
+            <span className="mt-auto text-xs font-mono text-cyan-400 font-semibold flex items-center">
+              Explorar módulos &rarr;
+            </span>
+          </div>
+        </Link>
+
+        {/* TARJETA 2: PYTHON */}
+        <Link href="/courses/AWS-AI-Programmer" className="group">
+          <div className="bg-slate-900 border border-slate-800 hover:border-purple-500 rounded-3xl p-8 shadow-2xl transition-all duration-300 transform group-hover:-translate-y-2 group-hover:shadow-purple-500/10 flex flex-col items-center text-center h-full">
+            <div className="w-16 h-16 rounded-2xl bg-purple-500/10 text-purple-400 flex items-center justify-center text-3xl font-bold mb-6 border border-purple-500/20 group-hover:scale-110 transition">
+              🐍
+            </div>
+            <h2 className="text-2xl font-bold text-white mb-2 group-hover:text-purple-400 transition">
+              Python
+            </h2>
+            <p className="text-slate-400 text-sm leading-relaxed mb-6">
+              Fundamentos de programación, estructuras de datos, IA y machine learning con Udacity.
+            </p>
+            <span className="mt-auto text-xs font-mono text-purple-400 font-semibold flex items-center">
+              Explorar módulos &rarr;
+            </span>
+          </div>
+        </Link>
+
+        {/* Tarjeta 3: Data Science (Numpy, Pandas, Matplotlib) */}
+        {/* Added w-full and h-full to fit seamlessly into responsive grids */}
+        <div className="w-full h-full bg-slate-900/50 border border-slate-800 rounded-2xl p-6 sm:p-8 hover:bg-slate-800/50 transition-colors flex flex-col items-center text-center group">
+
+          <div className="w-16 h-16 bg-emerald-500/10 rounded-2xl flex items-center justify-center mb-4 sm:mb-6 border border-emerald-500/20 group-hover:scale-110 transition-transform">
+            <LineChart className="text-emerald-400" size={32} />
+          </div>
+
+          <h2 className="text-xl sm:text-2xl font-bold text-white mb-2 sm:mb-3">Data Science</h2>
+
+          <p className="text-slate-400 text-sm leading-relaxed mb-6 sm:mb-8 flex-grow">
+            Data analysis, manipulation, and statistical visualization using Numpy, Pandas, Matplotlib, and Seaborn with Udacity.
           </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
+
           <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+            href="/courses/data-science"
+            className="text-emerald-400 font-mono text-sm font-semibold hover:text-emerald-300 flex items-center gap-2"
           >
-            <Image
-              className="dark:invert h-[14px] w-4"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={14}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
+            Explore modules <span className="text-lg">→</span>
           </a>
         </div>
-      </main>
-    </div>
+
+      </div>
+    </main>
   );
 }

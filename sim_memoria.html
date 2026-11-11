@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulador: Bucle For vs Vectorización (SIMD)</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #1e1e1e;
+            color: #f0f0f0;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        h2 { color: #61dafb; }
+
+        .container {
+            display: flex;
+            gap: 40px;
+            margin-top: 20px;
+            width: 100%;
+            max-width: 900px;
+        }
+
+        .panel {
+            flex: 1;
+            background-color: #2d2d2d;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .panel h3 { margin-top: 0; border-bottom: 2px solid #444; padding-bottom: 10px; width: 100%; text-align: center;}
+
+        /* Representación de la RAM */
+        .ram {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            margin-top: 20px;
+            width: 100%;
+            position: relative;
+        }
+
+        /* Estilo de lista dispersa (Python nativo) */
+        .ram.dispersa {
+            gap: 25px; /* Simula fragmentación */
+        }
+
+        /* Estilo de arreglo contiguo (NumPy) */
+        .ram.contigua {
+            gap: 2px; /* Simula bloque rígido */
+            border: 2px solid #555;
+            padding: 2px;
+            background-color: #111;
+        }
+
+        .cell {
+            background-color: #444;
+            border-radius: 4px;
+            height: 50px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: bold;
+            color: #aaa;
+            transition: all 0.2s ease;
+            border: 1px solid #555;
+        }
+
+        /* Estados de animación */
+        .cell.reading { background-color: #f39c12; color: #fff; transform: scale(1.1); border-color: #f1c40f; box-shadow: 0 0 10px #f1c40f;}
+        .cell.done { background-color: #27ae60; color: #fff; border-color: #2ecc71; }
+
+        .controls { margin-top: 30px; text-align: center; }
+        
+        button {
+            background-color: #61dafb;
+            color: #1e1e1e;
+            border: none;
+            padding: 12px 24px;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        button:hover { background-color: #4fa8c7; }
+        button:disabled { background-color: #555; color: #888; cursor: not-allowed; }
+
+        .stats {
+            margin-top: 15px;
+            font-size: 14px;
+            color: #aaa;
+            height: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>El Motor de la Vectorización</h2>
+    <p>Observa cómo la CPU lee la memoria. A la izquierda, saltando de puntero en puntero. A la derecha, cargando bloques SIMD.</p>
+
+    <div class="controls">
+        <button id="startBtn" onclick="runSimulation()">Iniciar Procesamiento</button>
+    </div>
+
+    <div class="container">
+        <div class="panel">
+            <h3>Bucle For (Lista Python)</h3>
+            <p style="font-size: 12px; color: #888; text-align: center;">Lectura escalar. 1 instrucción = 1 dato.</p>
+            <div class="ram dispersa" id="ram-scalar">
+                </div>
+            <div class="stats" id="stats-scalar">Ciclos de reloj: 0</div>
+        </div>
+
+        <div class="panel">
+            <h3>NumPy (Vectorizado)</h3>
+            <p style="font-size: 12px; color: #888; text-align: center;">Lectura SIMD. 1 instrucción = 4 datos contiguos.</p>
+            <div class="ram contigua" id="ram-simd">
+                </div>
+            <div class="stats" id="stats-simd">Ciclos de reloj: 0</div>
+        </div>
+    </div>
+
+    <script>
+        const numDatos = 16;
+        
+        // Función para pausar la ejecución (simular tiempo de procesamiento)
+        const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
+
+        function initRAM() {
+            const scalarRam = document.getElementById('ram-scalar');
+            const simdRam = document.getElementById('ram-simd');
+            
+            scalarRam.innerHTML = '';
+            simdRam.innerHTML = '';
+            
+            // Orden aleatorio para simular memoria dispersa en la lista
+            const randomOrder = Array.from({length: numDatos}, (_, i) => i).sort(() => Math.random() - 0.5);
+
+            for (let i = 0; i < numDatos; i++) {
+                // Celda Escalar
+                const cellS = document.createElement('div');
+                cellS.className = 'cell';
+                cellS.id = `sc-${randomOrder[i]}`; // ID desordenado
+                cellS.innerText = `0x${Math.floor(Math.random()*1000).toString(16).padStart(3, '0')}`;
+                scalarRam.appendChild(cellS);
+
+                // Celda SIMD (Contigua)
+                const cellV = document.createElement('div');
+                cellV.className = 'cell';
+                cellV.id = `si-${i}`; // ID secuencial
+                cellV.innerText = `0x0${(i+1).toString(16)}`;
+                simdRam.appendChild(cellV);
+            }
+            
+            document.getElementById('stats-scalar').innerText = "Ciclos de reloj: 0";
+            document.getElementById('stats-simd').innerText = "Ciclos de reloj: 0";
+        }
+
+        async function processScalar() {
+            let cycles = 0;
+            const stats = document.getElementById('stats-scalar');
+            
+            for (let i = 0; i < numDatos; i++) {
+                // El procesador tiene que buscar el puntero exacto
+                const cell = document.getElementById(`sc-${i}`);
+                cell.classList.add('reading');
+                
+                await sleep(150); // Simula el viaje lento a la RAM
+                
+                cell.classList.remove('reading');
+                cell.classList.add('done');
+                
+                cycles += 1;
+                stats.innerText = `Ciclos de reloj (viajes a RAM): ${cycles}`;
+            }
+            stats.innerText += " (¡Terminado!)";
+        }
+
+        async function processSIMD() {
+            let cycles = 0;
+            const stats = document.getElementById('stats-simd');
+            const anchoRegistroSIMD = 4; // Carga 4 datos de golpe
+
+            for (let i = 0; i < numDatos; i += anchoRegistroSIMD) {
+                // Carga un bloque de 4 al mismo tiempo
+                const cells = [];
+                for(let j = 0; j < anchoRegistroSIMD; j++) {
+                    const cell = document.getElementById(`si-${i+j}`);
+                    if(cell) {
+                        cell.classList.add('reading');
+                        cells.push(cell);
+                    }
+                }
+                
+                await sleep(150); // Un solo viaje a la RAM para traer 4 datos
+                
+                cells.forEach(cell => {
+                    cell.classList.remove('reading');
+                    cell.classList.add('done');
+                });
+                
+                cycles += 1; // Solo costó 1 ciclo procesar los 4
+                stats.innerText = `Ciclos de reloj (viajes a RAM): ${cycles}`;
+            }
+            stats.innerText += " (¡Terminado!)";
+        }
+
+        async function runSimulation() {
+            const btn = document.getElementById('startBtn');
+            btn.disabled = true;
+            
+            initRAM(); // Reiniciar visuales
+            await sleep(500);
+
+            // Ejecutamos ambas al mismo tiempo para ver la carrera
+            await Promise.all([
+                processScalar(),
+                processSIMD()
+            ]);
+
+            btn.disabled = false;
+            btn.innerText = "Reiniciar Simulación";
+        }
+
+        // Inicializar al cargar
+        window.onload = initRAM;
+    </script>
+</body>
+</html>

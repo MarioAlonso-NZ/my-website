@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Navigator</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    /* Deep Space Background */
+    body {
+      background: radial-gradient(circle at center, #111625 0%, #06080d 100%);
+      overflow: hidden;
+      height: 100vh;
+      margin: 0;
+      color: white;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    /* Twinkling Stars */
+    .stars {
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background-image: 
+        radial-gradient(2px 2px at 20px 30px, #ffffff, rgba(0,0,0,0)),
+        radial-gradient(2px 2px at 40px 70px, #ffffff, rgba(0,0,0,0)),
+        radial-gradient(1px 1px at 90px 40px, #ffffff, rgba(0,0,0,0)),
+        radial-gradient(2px 2px at 160px 120px, #ffffff, rgba(0,0,0,0));
+      background-repeat: repeat;
+      background-size: 200px 200px;
+      animation: twinkle 4s infinite alternate;
+      z-index: -1;
+    }
+
+    @keyframes twinkle {
+      0% { opacity: 0.3; }
+      100% { opacity: 0.8; }
+    }
+
+    /* Planet Glows */
+    .planet-glow { box-shadow: 0 0 40px 10px rgba(59, 130, 246, 0.4); }
+    .planet-glow-green { box-shadow: 0 0 40px 10px rgba(16, 185, 129, 0.4); }
+    
+    /* Bases (Moons) */
+    .base {
+      transition: all 0.3s ease;
+      cursor: pointer;
+      border: 2px dashed rgba(255, 255, 255, 0.4);
+    }
+    .base:hover { transform: scale(1.2); border-color: white; }
+    .base.completed {
+      background-color: rgba(59, 130, 246, 0.8);
+      border: 2px solid white;
+      box-shadow: 0 0 15px rgba(59, 130, 246, 0.8);
+    }
+
+    /* Spaceship Floating Animation */
+    .spaceship {
+      position: absolute;
+      font-size: 2.5rem;
+      animation: float 3s ease-in-out infinite;
+      cursor: pointer;
+      filter: drop-shadow(0 0 10px rgba(255,255,255,0.5));
+      transition: all 1s ease-in-out;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+
+    /* Asteroid Animation */
+    .asteroid {
+      position: absolute;
+      font-size: 2rem;
+      top: -100px;
+      right: 10%;
+      animation: drift 20s linear infinite;
+      filter: drop-shadow(0 0 10px rgba(255, 0, 0, 0.5));
+    }
+
+    @keyframes drift {
+      0% { top: -100px; right: 10%; transform: rotate(0deg); }
+      100% { top: 110vh; right: 90%; transform: rotate(360deg); }
+    }
+
+    /* Bot Floating Animation */
+    .bot {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      cursor: pointer;
+      animation: bounce 2s infinite;
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-15px); }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Background -->
+  <div class="stars"></div>
+
+  <!-- Main Game Container -->
+  <div class="relative w-full h-full flex items-center justify-center">
+
+    <!-- Planet 1: Fundamentals -->
+    <div class="relative flex flex-col items-center">
+      <!-- Planet -->
+      <div class="w-48 h-48 rounded-full bg-gradient-to-br from-blue-400 to-blue-900 planet-glow border border-blue-300 flex items-center justify-center">
+        <span class="text-xl font-bold text-blue-100">Fundamentals</span>
+      </div>
+
+      <!-- Orbiting Bases for Planet 1 -->
+      <div class="absolute top-0 left-0 w-full h-full flex items-center justify-center pointer-events-none">
+        <!-- Base 1 -->
+        <div class="base absolute w-8 h-8 rounded-full bg-gray-800 pointer-events-auto" style="top: -20px; left: 50%; transform: translateX(-50%);" onclick="completeBase(this)"></div>
+        <!-- Base 2 -->
+        <div class="base absolute w-8 h-8 rounded-full bg-gray-800 pointer-events-auto" style="bottom: 10px; left: -20px;" onclick="completeBase(this)"></div>
+        <!-- Base 3 -->
+        <div class="base absolute w-8 h-8 rounded-full bg-gray-800 pointer-events-auto" style="bottom: 10px; right: -20px;" onclick="completeBase(this)"></div>
+      </div>
+
+      <!-- Spaceship -->
+      <div id="spaceship" class="spaceship" style="bottom: -60px;">
+        🚀
+      </div>
+    </div>
+
+    <!-- Planet 2: RAG (Locked / Far away) -->
+    <div class="absolute right-32 top-32 flex flex-col items-center opacity-50">
+      <div class="w-32 h-32 rounded-full bg-gradient-to-br from-emerald-400 to-emerald-900 planet-glow-green border border-emerald-300 flex items-center justify-center">
+        <span class="text-lg font-bold text-emerald-100">RAG</span>
+      </div>
+    </div>
+
+    <!-- Random Asteroid -->
+    <div class="asteroid">☄️</div>
+
+  </div>
+
+  <!-- AI Copilot -->
+  <div class="bot" onclick="toggleChat()">
+    <div class="w-16 h-16 bg-blue-600 rounded-full flex items-center justify-center shadow-[0_0_20px_rgba(59,130,246,0.6)] border-2 border-blue-300">
+      <span class="text-3xl">🤖</span>
+    </div>
+  </div>
+
+  <!-- Chat Window (Hidden by default) -->
+  <div id="chatWindow" class="hidden fixed bottom-24 right-8 w-80 h-96 bg-gray-900 border border-gray-700 rounded-xl shadow-2xl flex flex-col overflow-hidden z-50">
+    <div class="bg-blue-600 p-3 text-white font-bold flex justify-between items-center">
+      <span>AI Copilot</span>
+      <button onclick="toggleChat()" class="text-white hover:text-gray-300">&times;</button>
+    </div>
+    <div class="flex-1 p-3 overflow-y-auto text-sm text-gray-300 flex flex-col gap-2" id="chatMessages">
+      <div class="bg-gray-800 p-2 rounded w-3/4">Hello! I am your AI copilot. Ready to start Phase 1?</div>
+    </div>
+    <div class="p-2 border-t border-gray-700 flex">
+      <input type="text" class="flex-1 bg-gray-800 text-white p-2 rounded-l outline-none text-sm" placeholder="Ask me anything...">
+      <button class="bg-blue-600 px-4 rounded-r text-sm font-bold">Send</button>
+    </div>
+  </div>
+
+  <!-- Scripts for Phase 1 Interactions -->
+  <script>
+    // Toggle the Chat Window
+    function toggleChat() {
+      const chat = document.getElementById('chatWindow');
+      chat.classList.toggle('hidden');
+    }
+
+    // Handle Base Checkpoints
+    let completedBases = 0;
+    const totalBases = 3;
+
+    function completeBase(element) {
+      // Toggle the 'completed' class
+      if (!element.classList.contains('completed')) {
+        element.classList.add('completed');
+        completedBases++;
+      } else {
+        element.classList.remove('completed');
+        completedBases--;
+      }
+
+      // Check if all bases are completed
+      if (completedBases === totalBases) {
+        alert("All bases checked! The path to the next planet is clear.");
+        // Here, you would trigger a function to animate the spaceship to Planet 2
+        // moveSpaceshipToPlanet2();
+      }
+    }
+
+    // Function to move the spaceship (For future use)
+    function moveSpaceship() {
+      const ship = document.getElementById('spaceship');
+      // Example animation to fly ship to the top right
+      ship.style.transform = 'translate(300px, -200px) rotate(45deg)';
+    }
+  </script>
+</body>
+</html>
