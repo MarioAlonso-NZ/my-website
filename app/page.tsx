@@ -79,6 +79,24 @@ export default function ArcadeHomeCards() {
           </a>
         </div>
 
+        {/* 4th card */}
+        <Link href="/courses/algorithm-quest" className="group">
+          <div className="bg-slate-900 border border-slate-800 hover:border-blue-500 rounded-3xl p-8 shadow-2xl transition-all duration-300 transform group-hover:-translate-y-2 group-hover:shadow-purple-500/10 flex flex-col items-center text-center h-full">
+            <div className="w-16 h-16 rounded-2xl bg-purple-500/10 text-blue-400 flex items-center justify-center text-3xl font-bold mb-6 border border-purple-500/20 group-hover:scale-110 transition">
+              🔢
+            </div>
+            <h2 className="text-2xl font-bold text-white mb-2 group-hover:text-blue-400 transition">
+              Algorithm quest
+            </h2>
+            <p className="text-slate-400 text-sm leading-relaxed mb-6">
+              Build your coding confidence through weekly lessons, hands-on challenges, and assessment preparation.
+            </p>
+            <span className="mt-auto text-xs font-mono text-blue-400 font-semibold flex items-center">
+              Explore learning path &rarr;
+            </span>
+          </div>
+        </Link>
+
       </div>
     </main>
   );

@@ -2,13 +2,72 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link'; import { LineChart, Package, BookOpen, Link as LinkIcon } from 'lucide-react';
+
+// #region Section 1
 import AnacondaDemonstration from '@/app/courses/data-science/components/AnacondaDemonstration';
 import WhatIsAnaconda from '@/app/courses/data-science/components/WhatIsAnaconda'; // Importa el nuevo componente
+import InstallingAnaconda from '@/app/courses/data-science/components/InstallingAnaconda';
+import ManagingPackages from '@/app/courses/data-science/components/ManagingPackages';
+import ManagingEnvironments from '@/app/courses/data-science/components/ManagingEnvironments';
+import MoreEnvironmentActions from '@/app/courses/data-science/components/MoreEnvironmentActions';
+// #endregion
+
+// #region Section 2
+import WhatIsJupyterNotebook from './components/WhatIsJupyterNotebook';
+import InstallingJupyter from './components/InstallingJupyter';
+import LaunchingNotebookServer from './components/LaunchingNotebookServer';
+import NotebookInterface from './components/NotebookInterface';
+import MarkdownCells from './components/MarkdownCells';
+import MagicKeywords from './components/MagicKeywords';
+import ConvertingNotebooks from './components/ConvertingNotebooks';
+import JupyterWorkspaceOverview from './components/JupyterWorkspaceOverview';
+// #endregion
+
+// #region Section 3
+import NumpyInstructorsOverview from './components/NumpyInstructorsOverview';
+import WhyUseNumpy from './components/WhyUseNumpy';
+import CreatingSavingNdarrays from './components/CreatingSavingNdarrays';
+import BuiltinFunctionsNdarrays from './components/BuiltinFunctionsNdarrays';
+import AccessDeleteInsertNdarrays from './components/AccessDeleteInsertNdarrays';
+import SlicingNdarrays from './components/SlicingNdarrays';
+import BooleanSetSortNdarrays from './components/BooleanSetSortNdarrays';
+import ArithmeticBroadcastingNdarrays from './components/ArithmeticBroadcastingNdarrays';
+// #endregion
 
 export default function DataScienceCoursePage() {
-    const [isAnacondaOpen, setIsAnacondaOpen] = useState(true); // Puedes dejarlo en true para que se abra por defecto al testear
-    const [isAnacondaDemoOpen, setIsAnacondaDemoOpen] = useState(true); // Puedes dejarlo en true para que se abra por defecto al testear
-    const [isWhatIsAnaconda, setIsWhatIsAnaconda] = useState(true)
+    // #region First section
+    const [isAnacondaOpen, setIsAnacondaOpen] = useState(false); // Puedes dejarlo en false para que se abra por defecto al testear
+    const [isAnacondaDemoOpen, setIsAnacondaDemoOpen] = useState(false); // Puedes dejarlo en false para que se abra por defecto al testear
+    const [isWhatIsAnaconda, setIsWhatIsAnaconda] = useState(false)
+    const [isAnacondaInstall, setIsAnacondaInstall] = useState(false)
+    const [isPackageManagerOpen, setIsPackageManagerOpen] = useState(false)
+    const [isEnvManagerOpen, setIsEnvManagerOpen] = useState(false)
+    const [isMoreEnvManager, setIsMoreEnvManager] = useState(false)
+    // #endregion
+
+    // #region Second section
+    const [isSection2Open, setIsSection2Open] = useState(false)
+    const [isWhatIsJNOpen, setIsWhatIsJNOpen] = useState(false)
+    const [isInstallJupyter, setIsInstallJupyter] = useState(false)
+    const [isLaunchNotebookServerOpen, setIsLaunchNotebookServerOpen] = useState(false)
+    const [isNotebookInterfaceOpen, setIsNotebookInterfaceOpen] = useState(false)
+    const [isMarkdownCellsOpen, setIsMarkdownCellsOpen] = useState(false)
+    const [isMargicKeywordsOpen, setIsMagicKeywordsOpen] = useState(false)
+    const [isNotebookConvertOpen, setIsNotebookConvertOpen] = useState(false)
+    const [isJupyterWorkspaceOverviewOpen, setIsJupyterWorkspaceOverviewOpen] = useState(false)
+    // #endregion
+
+    // #region
+    const [isNumpyOpen, setIsNumpyOpen] = useState(false)
+    const [isNumpyInstructorOpen, setIsNumpyInstructorOpen] = useState(false)
+    const [isWhyUseNumpyOpen, setIsWhyUseNumpyOpen] = useState(false)
+    const [isCreatingSavingNdarraysOpen, setIsCreatingSavingNdarraysOpen] = useState(false)
+    const [isBuiltinOpen, setIsBuiltinOpen] = useState(false)
+    const [isAccessDeleteInsertNdarraysOpen, setIsAccessDeleteInsertNdarraysOpen] = useState(false)
+    const [isSlicingOpen, setIsSlicingOpen] = useState(false)
+    const [isBoolOpen, setIsBoolOpen] = useState(false)
+    const [isArithmeticBroadcastingNdarraysOpen, setIsArithmeticBroadcastingNdarraysOpen] = useState(false)
+    // #endregion
 
     return (
         <div className="min-h-screen bg-[#0B1120] text-slate-300 font-sans p-8 selection:bg-emerald-500/30">
@@ -102,6 +161,589 @@ export default function DataScienceCoursePage() {
                                         </div>
                                     )}
                                 </div>
+
+                                {/* 1.3 Installing Anaconda */}
+                                <div className="bg-slate-900 border border-slate-800 rounded-xl overflow-hidden mt-4">
+                                    <button
+                                        onClick={() => setIsAnacondaInstall(!isAnacondaInstall)}
+                                        className="w-full px-5 py-4 flex items-center justify-between text-left hover:bg-slate-800/40 transition"
+                                    >
+                                        <div className="flex items-center space-x-3">
+                                            <span className="text-emerald-400 font-mono font-bold text-lg">1.3.</span>
+                                            <span className="font-semibold text-white text-lg">Anaconda Installation</span>
+                                        </div>
+                                        <span className="text-slate-400 text-sm transform transition-transform duration-200" style={{ transform: isAnacondaInstall ? 'rotate(180deg)' : 'rotate(0deg)' }}>
+                                            ▼
+                                        </span>
+                                    </button>
+
+                                    {isAnacondaInstall && (
+
+                                        <div className="px-5 pb-6 pt-2 border-t border-slate-800/60 text-slate-300 text-sm leading-relaxed space-y-4 bg-slate-950/50">
+                                            {/* Instanciamos nuestro nuevo componente aquí */}
+                                            <InstallingAnaconda />
+                                        </div>
+                                    )}
+                                </div>
+
+                                <div className="bg-slate-900 border border-slate-800 rounded-xl overflow-hidden mt-4">
+                                    <button
+                                        onClick={() => setIsPackageManagerOpen(!isPackageManagerOpen)}
+                                        className="w-full px-5 py-4 flex items-center justify-between text-left hover:bg-slate-800/40 transition"
+                                    >
+                                        <div className="flex items-center space-x-3">
+                                            <span className="text-emerald-400 font-mono font-bold text-lg">1.4.</span>
+                                            <span className="font-semibold text-white text-lg">Managing Packages</span>
+                                        </div>
+                                        <span className="text-slate-400 text-sm transform transition-transform duration-200" style={{ transform: isPackageManagerOpen ? 'rotate(180deg)' : 'rotate(0deg)' }}>
+                                            ▼
+                                        </span>
+                                    </button>
+
+                                    {isPackageManagerOpen && (
+
+                                        <div className="px-5 pb-6 pt-2 border-t border-slate-800/60 text-slate-300 text-sm leading-relaxed space-y-4 bg-slate-950/50">
+                                            {/* Instanciamos nuestro nuevo componente aquí */}
+                                            <ManagingPackages />
+                                        </div>
+                                    )}
+                                </div>
+
+                                <div className="bg-slate-900 border border-slate-800 rounded-xl overflow-hidden mt-4">
+                                    <button
+                                        onClick={() => setIsAnacondaInstall(!isAnacondaInstall)}
+                                        className="w-full px-5 py-4 flex items-center justify-between text-left hover:bg-slate-800/40 transition"
+                                    >
+                                        <div className="flex items-center space-x-3">
+                                            <span className="text-emerald-400 font-mono font-bold text-lg">1.3.</span>
+                                            <span className="font-semibold text-white text-lg">Anaconda Installation</span>
+                                        </div>
+                                        <span className="text-slate-400 text-sm transform transition-transform duration-200" style={{ transform: isAnacondaInstall ? 'rotate(180deg)' : 'rotate(0deg)' }}>
+                                            ▼
+                                        </span>
+                                    </button>
+
+                                    {isAnacondaInstall && (
+
+                                        <div className="px-5 pb-6 pt-2 border-t border-slate-800/60 text-slate-300 text-sm leading-relaxed space-y-4 bg-slate-950/50">
+                                            {/* Instanciamos nuestro nuevo componente aquí */}
+                                            <InstallingAnaconda />
+                                        </div>
+                                    )}
+                                </div>
+
+                                <div className="bg-slate-900 border border-slate-800 rounded-xl overflow-hidden mt-4">
+                                    <button
+                                        onClick={() => setIsEnvManagerOpen(!isEnvManagerOpen)}
+                                        className="w-full px-5 py-4 flex items-center justify-between text-left hover:bg-slate-800/40 transition"
+                                    >
+                                        <div className="flex items-center space-x-3">
+                                            <span className="text-emerald-400 font-mono font-bold text-lg">1.4.</span>
+                                            <span className="font-semibold text-white text-lg">Managing Environments</span>
+                                        </div>
+                                        <span className="text-slate-400 text-sm transform transition-transform duration-200" style={{ transform: isEnvManagerOpen ? 'rotate(180deg)' : 'rotate(0deg)' }}>
+                                            ▼
+                                        </span>
+                                    </button>
+
+                                    {isEnvManagerOpen && (
+
+                                        <div className="px-5 pb-6 pt-2 border-t border-slate-800/60 text-slate-300 text-sm leading-relaxed space-y-4 bg-slate-950/50">
+                                            {/* Instanciamos nuestro nuevo componente aquí */}
+                                            <ManagingEnvironments />
+                                        </div>
+                                    )}
+                                </div>
+
+                                <div className="bg-slate-900 border border-slate-800 rounded-xl overflow-hidden mt-4">
+                                    <button
+                                        onClick={() => setIsMoreEnvManager(!isMoreEnvManager)}
+                                        className="w-full px-5 py-4 flex items-center justify-between text-left hover:bg-slate-800/40 transition"
+                                    >
+                                        <div className="flex items-center space-x-3">
+                                            <span className="text-emerald-400 font-mono font-bold text-lg">1.5.</span>
+                                            <span className="font-semibold text-white text-lg">More about managing Environments</span>
+                                        </div>
+                                        <span className="text-slate-400 text-sm transform transition-transform duration-200" style={{ transform: isMoreEnvManager ? 'rotate(180deg)' : 'rotate(0deg)' }}>
+                                            ▼
+                                        </span>
+                                    </button>
+
+                                    {isMoreEnvManager && (
+
+                                        <div className="px-5 pb-6 pt-2 border-t border-slate-800/60 text-slate-300 text-sm leading-relaxed space-y-4 bg-slate-950/50">
+                                            {/* Instanciamos nuestro nuevo componente aquí */}
+                                            <MoreEnvironmentActions />
+                                        </div>
+                                    )}
+                                </div>
+                            </div>
+                        )}
+                    </div>
+
+                    <div className="bg-slate-900 border border-slate-800 rounded-2xl shadow-2xl overflow-hidden mb-12">
+                        <button
+                            onClick={() => setIsSection2Open(!isSection2Open)}
+                            className="w-full px-6 py-5 flex items-center justify-between text-left bg-slate-900 hover:bg-slate-800/60 transition border-b border-slate-800/80"
+                        >
+                            <div className="flex items-center space-x-4">
+                                <div className="w-10 h-10 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 flex items-center justify-center font-mono text-base font-bold">
+                                    2
+                                </div>
+                                <span className="text-xl font-bold text-white tracking-tight">Jupyter Lab</span>
+                            </div>
+                            <span
+                                className="text-slate-400 text-sm transform transition-transform duration-200"
+                                style={{ transform: isSection2Open ? 'rotate(180deg)' : 'rotate(0deg)' }}
+                            >
+                                ▼
+                            </span>
+                        </button>
+
+                        {isSection2Open && (
+
+                            <div className="p-6 space-y-6 bg-slate-950/40">
+
+                                <div className="bg-slate-900 border border-slate-800 rounded-xl overflow-hidden mt-4">
+                                    <button
+                                        onClick={() => setIsWhatIsJNOpen(!isWhatIsJNOpen)}
+                                        className="w-full px-5 py-4 flex items-center justify-between text-left hover:bg-slate-800/40 transition"
+                                    >
+                                        <div className="flex items-center space-x-3">
+                                            <span className="text-emerald-400 font-mono font-bold text-lg">2.1.</span>
+                                            <span className="font-semibold text-white text-lg">What is Jupyter Notebook</span>
+                                        </div>
+                                        <span className="text-slate-400 text-sm transform transition-transform duration-200" style={{ transform: isWhatIsJNOpen ? 'rotate(180deg)' : 'rotate(0deg)' }}>
+                                            ▼
+                                        </span>
+                                    </button>
+
+                                    {isWhatIsJNOpen && (
+
+                                        <div className="px-5 pb-6 pt-2 border-t border-slate-800/60 text-slate-300 text-sm leading-relaxed space-y-4 bg-slate-950/50">
+                                            {/* Instanciamos nuestro nuevo componente aquí */}
+                                            <WhatIsJupyterNotebook />
+                                        </div>
+                                    )}
+                                </div>
+
+                                <div className="bg-slate-900 border border-slate-800 rounded-xl overflow-hidden mt-4">
+                                    <button
+                                        onClick={() => setIsInstallJupyter(!isInstallJupyter)}
+                                        className="w-full px-5 py-4 flex items-center justify-between text-left hover:bg-slate-800/40 transition"
+                                    >
+                                        <div className="flex items-center space-x-3">
+                                            <span className="text-emerald-400 font-mono font-bold text-lg">2.2.</span>
+                                            <span className="font-semibold text-white text-lg">Install Jupyter Notebook</span>
+                                        </div>
+                                        <span className="text-slate-400 text-sm transform transition-transform duration-200" style={{ transform: isInstallJupyter ? 'rotate(180deg)' : 'rotate(0deg)' }}>
+                                            ▼
+                                        </span>
+                                    </button>
+
+                                    {isInstallJupyter && (
+
+                                        <div className="px-5 pb-6 pt-2 border-t border-slate-800/60 text-slate-300 text-sm leading-relaxed space-y-4 bg-slate-950/50">
+                                            {/* Instanciamos nuestro nuevo componente aquí */}
+                                            <InstallingJupyter />
+                                        </div>
+                                    )}
+                                </div>
+
+                                <div className="bg-slate-900 border border-slate-800 rounded-xl overflow-hidden mt-4">
+                                    <button
+                                        onClick={() => setIsLaunchNotebookServerOpen(!isLaunchNotebookServerOpen)}
+                                        className="w-full px-5 py-4 flex items-center justify-between text-left hover:bg-slate-800/40 transition"
+                                    >
+                                        <div className="flex items-center space-x-3">
+                                            <span className="text-emerald-400 font-mono font-bold text-lg">2.3.</span>
+                                            <span className="font-semibold text-white text-lg">Launching a Notebook Server</span>
+                                        </div>
+                                        <span className="text-slate-400 text-sm transform transition-transform duration-200" style={{ transform: isLaunchNotebookServerOpen ? 'rotate(180deg)' : 'rotate(0deg)' }}>
+                                            ▼
+                                        </span>
+                                    </button>
+
+                                    {isLaunchNotebookServerOpen && (
+
+                                        <div className="px-5 pb-6 pt-2 border-t border-slate-800/60 text-slate-300 text-sm leading-relaxed space-y-4 bg-slate-950/50">
+                                            {/* Instanciamos nuestro nuevo componente aquí */}
+                                            <LaunchingNotebookServer />
+                                        </div>
+                                    )}
+                                </div>
+
+                                <div className="bg-slate-900 border border-slate-800 rounded-xl overflow-hidden mt-4">
+                                    <button
+                                        onClick={() => setIsLaunchNotebookServerOpen(!isLaunchNotebookServerOpen)}
+                                        className="w-full px-5 py-4 flex items-center justify-between text-left hover:bg-slate-800/40 transition"
+                                    >
+                                        <div className="flex items-center space-x-3">
+                                            <span className="text-emerald-400 font-mono font-bold text-lg">2.3.</span>
+                                            <span className="font-semibold text-white text-lg">Launching a Notebook Server</span>
+                                        </div>
+                                        <span className="text-slate-400 text-sm transform transition-transform duration-200" style={{ transform: isLaunchNotebookServerOpen ? 'rotate(180deg)' : 'rotate(0deg)' }}>
+                                            ▼
+                                        </span>
+                                    </button>
+
+                                    {isLaunchNotebookServerOpen && (
+
+                                        <div className="px-5 pb-6 pt-2 border-t border-slate-800/60 text-slate-300 text-sm leading-relaxed space-y-4 bg-slate-950/50">
+                                            {/* Instanciamos nuestro nuevo componente aquí */}
+                                            <LaunchingNotebookServer />
+                                        </div>
+                                    )}
+                                </div>
+
+                                <div className="bg-slate-900 border border-slate-800 rounded-xl overflow-hidden mt-4">
+                                    <button
+                                        onClick={() => setIsNotebookInterfaceOpen(!isNotebookInterfaceOpen)}
+                                        className="w-full px-5 py-4 flex items-center justify-between text-left hover:bg-slate-800/40 transition"
+                                    >
+                                        <div className="flex items-center space-x-3">
+                                            <span className="text-emerald-400 font-mono font-bold text-lg">2.5.</span>
+                                            <span className="font-semibold text-white text-lg">Notebook Interface</span>
+                                        </div>
+                                        <span className="text-slate-400 text-sm transform transition-transform duration-200" style={{ transform: isNotebookInterfaceOpen ? 'rotate(180deg)' : 'rotate(0deg)' }}>
+                                            ▼
+                                        </span>
+                                    </button>
+
+                                    {isNotebookInterfaceOpen && (
+
+                                        <div className="px-5 pb-6 pt-2 border-t border-slate-800/60 text-slate-300 text-sm leading-relaxed space-y-4 bg-slate-950/50">
+                                            {/* Instanciamos nuestro nuevo componente aquí */}
+                                            <NotebookInterface />
+                                        </div>
+                                    )}
+                                </div>
+
+                                <div className="bg-slate-900 border border-slate-800 rounded-xl overflow-hidden mt-4">
+                                    <button
+                                        onClick={() => setIsMarkdownCellsOpen(!isMarkdownCellsOpen)}
+                                        className="w-full px-5 py-4 flex items-center justify-between text-left hover:bg-slate-800/40 transition"
+                                    >
+                                        <div className="flex items-center space-x-3">
+                                            <span className="text-emerald-400 font-mono font-bold text-lg">2.6.</span>
+                                            <span className="font-semibold text-white text-lg">Markdown cells</span>
+                                        </div>
+                                        <span className="text-slate-400 text-sm transform transition-transform duration-200" style={{ transform: isMarkdownCellsOpen ? 'rotate(180deg)' : 'rotate(0deg)' }}>
+                                            ▼
+                                        </span>
+                                    </button>
+
+                                    {isMarkdownCellsOpen && (
+
+                                        <div className="px-5 pb-6 pt-2 border-t border-slate-800/60 text-slate-300 text-sm leading-relaxed space-y-4 bg-slate-950/50">
+                                            {/* Instanciamos nuestro nuevo componente aquí */}
+                                            <MarkdownCells />
+                                        </div>
+                                    )}
+                                </div>
+
+                                <div className="bg-slate-900 border border-slate-800 rounded-xl overflow-hidden mt-4">
+                                    <button
+                                        onClick={() => setIsMagicKeywordsOpen(!isMargicKeywordsOpen)}
+                                        className="w-full px-5 py-4 flex items-center justify-between text-left hover:bg-slate-800/40 transition"
+                                    >
+                                        <div className="flex items-center space-x-3">
+                                            <span className="text-emerald-400 font-mono font-bold text-lg">2.6.</span>
+                                            <span className="font-semibold text-white text-lg">Magic Keywords</span>
+                                        </div>
+                                        <span className="text-slate-400 text-sm transform transition-transform duration-200" style={{ transform: isMargicKeywordsOpen ? 'rotate(180deg)' : 'rotate(0deg)' }}>
+                                            ▼
+                                        </span>
+                                    </button>
+
+                                    {isMargicKeywordsOpen && (
+
+                                        <div className="px-5 pb-6 pt-2 border-t border-slate-800/60 text-slate-300 text-sm leading-relaxed space-y-4 bg-slate-950/50">
+                                            {/* Instanciamos nuestro nuevo componente aquí */}
+                                            <MagicKeywords />
+                                        </div>
+                                    )}
+                                </div>
+
+                                <div className="bg-slate-900 border border-slate-800 rounded-xl overflow-hidden mt-4">
+                                    <button
+                                        onClick={() => setIsNotebookConvertOpen(!isNotebookConvertOpen)}
+                                        className="w-full px-5 py-4 flex items-center justify-between text-left hover:bg-slate-800/40 transition"
+                                    >
+                                        <div className="flex items-center space-x-3">
+                                            <span className="text-emerald-400 font-mono font-bold text-lg">2.8.</span>
+                                            <span className="font-semibold text-white text-lg">Converting a Slideshow</span>
+                                        </div>
+                                        <span className="text-slate-400 text-sm transform transition-transform duration-200" style={{ transform: isNotebookConvertOpen ? 'rotate(180deg)' : 'rotate(0deg)' }}>
+                                            ▼
+                                        </span>
+                                    </button>
+
+                                    {isNotebookConvertOpen && (
+
+                                        <div className="px-5 pb-6 pt-2 border-t border-slate-800/60 text-slate-300 text-sm leading-relaxed space-y-4 bg-slate-950/50">
+                                            {/* Instanciamos nuestro nuevo componente aquí */}
+                                            <ConvertingNotebooks />
+                                        </div>
+                                    )}
+                                </div>
+
+                                <div className="bg-slate-900 border border-slate-800 rounded-xl overflow-hidden mt-4">
+                                    <button
+                                        onClick={() => setIsJupyterWorkspaceOverviewOpen(!isJupyterWorkspaceOverviewOpen)}
+                                        className="w-full px-5 py-4 flex items-center justify-between text-left hover:bg-slate-800/40 transition"
+                                    >
+                                        <div className="flex items-center space-x-3">
+                                            <span className="text-emerald-400 font-mono font-bold text-lg">2.9.</span>
+                                            <span className="font-semibold text-white text-lg">Jupyter Workspace Overview</span>
+                                        </div>
+                                        <span className="text-slate-400 text-sm transform transition-transform duration-200" style={{ transform: isJupyterWorkspaceOverviewOpen ? 'rotate(180deg)' : 'rotate(0deg)' }}>
+                                            ▼
+                                        </span>
+                                    </button>
+
+                                    {isJupyterWorkspaceOverviewOpen && (
+
+                                        <div className="px-5 pb-6 pt-2 border-t border-slate-800/60 text-slate-300 text-sm leading-relaxed space-y-4 bg-slate-950/50">
+                                            {/* Instanciamos nuestro nuevo componente aquí */}
+                                            <JupyterWorkspaceOverview />
+                                        </div>
+                                    )}
+                                </div>
+
+                            </div>
+                        )}
+                    </div>
+
+                    <div className="bg-slate-900 border border-slate-800 rounded-2xl shadow-2xl overflow-hidden mb-12">
+                        <button
+                            onClick={() => setIsNumpyOpen(!isNumpyOpen)}
+                            className="w-full px-6 py-5 flex items-center justify-between text-left bg-slate-900 hover:bg-slate-800/60 transition border-b border-slate-800/80"
+                        >
+                            <div className="flex items-center space-x-4">
+                                <div className="w-10 h-10 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 flex items-center justify-center font-mono text-base font-bold">
+                                    3
+                                </div>
+                                <span className="text-xl font-bold text-white tracking-tight">Numpy</span>
+                            </div>
+                            <span
+                                className="text-slate-400 text-sm transform transition-transform duration-200"
+                                style={{ transform: isNumpyOpen ? 'rotate(180deg)' : 'rotate(0deg)' }}
+                            >
+                                ▼
+                            </span>
+                        </button>
+
+                        {isNumpyOpen && (
+
+                            <div className="p-6 space-y-6 bg-slate-950/40">
+                                <div className="bg-slate-900 border border-slate-800 rounded-xl overflow-hidden mt-4">
+                                    <button
+                                        onClick={() => setIsNumpyInstructorOpen(!isNumpyInstructorOpen)}
+                                        className="w-full px-5 py-4 flex items-center justify-between text-left hover:bg-slate-800/40 transition"
+                                    >
+                                        <div className="flex items-center space-x-3">
+                                            <span className="text-emerald-400 font-mono font-bold text-lg">1.1.</span>
+                                            <span className="font-semibold text-white text-lg">Numpy Instructors</span>
+                                        </div>
+                                        <span className="text-slate-400 text-sm transform transition-transform duration-200" style={{ transform: isNumpyInstructorOpen ? 'rotate(180deg)' : 'rotate(0deg)' }}>
+                                            ▼
+                                        </span>
+                                    </button>
+
+                                    {isNumpyInstructorOpen && (
+
+                                        <div className="px-5 pb-6 pt-2 border-t border-slate-800/60 text-slate-300 text-sm leading-relaxed space-y-4 bg-slate-950/50">
+                                            {/* Instanciamos nuestro nuevo componente aquí */}
+                                            <NumpyInstructorsOverview />
+                                        </div>
+                                    )}
+                                </div>
+
+                                <div className="bg-slate-900 border border-slate-800 rounded-xl overflow-hidden mt-4">
+                                    <button
+                                        onClick={() => setIsWhyUseNumpyOpen(!isWhyUseNumpyOpen)}
+                                        className="w-full px-5 py-4 flex items-center justify-between text-left hover:bg-slate-800/40 transition"
+                                    >
+                                        <div className="flex items-center space-x-3">
+                                            <span className="text-emerald-400 font-mono font-bold text-lg">3.2.</span>
+                                            <span className="font-semibold text-white text-lg">Why to use numpy</span>
+                                        </div>
+                                        <span className="text-slate-400 text-sm transform transition-transform duration-200" style={{ transform: isWhyUseNumpyOpen ? 'rotate(180deg)' : 'rotate(0deg)' }}>
+                                            ▼
+                                        </span>
+                                    </button>
+
+                                    {isWhyUseNumpyOpen && (
+
+                                        <div className="px-5 pb-6 pt-2 border-t border-slate-800/60 text-slate-300 text-sm leading-relaxed space-y-4 bg-slate-950/50">
+                                            {/* Instanciamos nuestro nuevo componente aquí */}
+                                            <WhyUseNumpy />
+                                        </div>
+                                    )}
+                                </div>
+
+                                <div className="bg-slate-900 border border-slate-800 rounded-xl overflow-hidden mt-4">
+                                    <button
+                                        onClick={() => setIsCreatingSavingNdarraysOpen(!isCreatingSavingNdarraysOpen)}
+                                        className="w-full px-5 py-4 flex items-center justify-between text-left hover:bg-slate-800/40 transition"
+                                    >
+                                        <div className="flex items-center space-x-3">
+                                            <span className="text-emerald-400 font-mono font-bold text-lg">3.3.</span>
+                                            <span className="font-semibold text-white text-lg">Creating and Saving Ndarrays</span>
+                                        </div>
+                                        <span className="text-slate-400 text-sm transform transition-transform duration-200" style={{ transform: isCreatingSavingNdarraysOpen ? 'rotate(180deg)' : 'rotate(0deg)' }}>
+                                            ▼
+                                        </span>
+                                    </button>
+
+                                    {isCreatingSavingNdarraysOpen && (
+
+                                        <div className="px-5 pb-6 pt-2 border-t border-slate-800/60 text-slate-300 text-sm leading-relaxed space-y-4 bg-slate-950/50">
+                                            {/* Instanciamos nuestro nuevo componente aquí */}
+                                            <CreatingSavingNdarrays />
+                                        </div>
+                                    )}
+                                </div>
+
+                                <div className="bg-slate-900 border border-slate-800 rounded-xl overflow-hidden mt-4">
+                                    <button
+                                        onClick={() => setIsAccessDeleteInsertNdarraysOpen(!isAccessDeleteInsertNdarraysOpen)}
+                                        className="w-full px-5 py-4 flex items-center justify-between text-left hover:bg-slate-800/40 transition"
+                                    >
+                                        <div className="flex items-center space-x-3">
+                                            <span className="text-emerald-400 font-mono font-bold text-lg">3.6.</span>
+                                            <span className="font-semibold text-white text-lg">Delete, Insert and append ndarrays</span>
+                                        </div>
+                                        <span className="text-slate-400 text-sm transform transition-transform duration-200" style={{ transform: isAccessDeleteInsertNdarraysOpen ? 'rotate(180deg)' : 'rotate(0deg)' }}>
+                                            ▼
+                                        </span>
+                                    </button>
+
+                                    {isAccessDeleteInsertNdarraysOpen && (
+
+                                        <div className="px-5 pb-6 pt-2 border-t border-slate-800/60 text-slate-300 text-sm leading-relaxed space-y-4 bg-slate-950/50">
+                                            {/* Instanciamos nuestro nuevo componente aquí */}
+                                            <AccessDeleteInsertNdarrays />
+                                        </div>
+                                    )}
+                                </div>
+
+                                <div className="bg-slate-900 border border-slate-800 rounded-xl overflow-hidden mt-4">
+                                    <button
+                                        onClick={() => setIsBuiltinOpen(!isBuiltinOpen)}
+                                        className="w-full px-5 py-4 flex items-center justify-between text-left hover:bg-slate-800/40 transition"
+                                    >
+                                        <div className="flex items-center space-x-3">
+                                            <span className="text-emerald-400 font-mono font-bold text-lg">3.6.</span>
+                                            <span className="font-semibold text-white text-lg">Ndarrays Built-in functions</span>
+                                        </div>
+                                        <span className="text-slate-400 text-sm transform transition-transform duration-200" style={{ transform: isBuiltinOpen ? 'rotate(180deg)' : 'rotate(0deg)' }}>
+                                            ▼
+                                        </span>
+                                    </button>
+
+                                    {isBuiltinOpen && (
+
+                                        <div className="px-5 pb-6 pt-2 border-t border-slate-800/60 text-slate-300 text-sm leading-relaxed space-y-4 bg-slate-950/50">
+                                            {/* Instanciamos nuestro nuevo componente aquí */}
+                                            <BuiltinFunctionsNdarrays />
+                                        </div>
+                                    )}
+                                </div>
+
+                                <div className="bg-slate-900 border border-slate-800 rounded-xl overflow-hidden mt-4">
+                                    <button
+                                        onClick={() => setIsAccessDeleteInsertNdarraysOpen(!isAccessDeleteInsertNdarraysOpen)}
+                                        className="w-full px-5 py-4 flex items-center justify-between text-left hover:bg-slate-800/40 transition"
+                                    >
+                                        <div className="flex items-center space-x-3">
+                                            <span className="text-emerald-400 font-mono font-bold text-lg">3.6.</span>
+                                            <span className="font-semibold text-white text-lg">Delete, Insert and append ndarrays</span>
+                                        </div>
+                                        <span className="text-slate-400 text-sm transform transition-transform duration-200" style={{ transform: isAccessDeleteInsertNdarraysOpen ? 'rotate(180deg)' : 'rotate(0deg)' }}>
+                                            ▼
+                                        </span>
+                                    </button>
+
+                                    {isAccessDeleteInsertNdarraysOpen && (
+
+                                        <div className="px-5 pb-6 pt-2 border-t border-slate-800/60 text-slate-300 text-sm leading-relaxed space-y-4 bg-slate-950/50">
+                                            {/* Instanciamos nuestro nuevo componente aquí */}
+                                            <AccessDeleteInsertNdarrays />
+                                        </div>
+                                    )}
+                                </div>
+
+                                <div className="bg-slate-900 border border-slate-800 rounded-xl overflow-hidden mt-4">
+                                    <button
+                                        onClick={() => setIsSlicingOpen(!isSlicingOpen)}
+                                        className="w-full px-5 py-4 flex items-center justify-between text-left hover:bg-slate-800/40 transition"
+                                    >
+                                        <div className="flex items-center space-x-3">
+                                            <span className="text-emerald-400 font-mono font-bold text-lg">3.10.</span>
+                                            <span className="font-semibold text-white text-lg">Slicing ndarrays</span>
+                                        </div>
+                                        <span className="text-slate-400 text-sm transform transition-transform duration-200" style={{ transform: isSlicingOpen ? 'rotate(180deg)' : 'rotate(0deg)' }}>
+                                            ▼
+                                        </span>
+                                    </button>
+
+                                    {isSlicingOpen && (
+
+                                        <div className="px-5 pb-6 pt-2 border-t border-slate-800/60 text-slate-300 text-sm leading-relaxed space-y-4 bg-slate-950/50">
+                                            {/* Instanciamos nuestro nuevo componente aquí */}
+                                            <SlicingNdarrays />
+                                        </div>
+                                    )}
+                                </div>
+
+                                <div className="bg-slate-900 border border-slate-800 rounded-xl overflow-hidden mt-4">
+                                    <button
+                                        onClick={() => setIsBoolOpen(!isBoolOpen)}
+                                        className="w-full px-5 py-4 flex items-center justify-between text-left hover:bg-slate-800/40 transition"
+                                    >
+                                        <div className="flex items-center space-x-3">
+                                            <span className="text-emerald-400 font-mono font-bold text-lg">3.12.</span>
+                                            <span className="font-semibold text-white text-lg">Sort</span>
+                                        </div>
+                                        <span className="text-slate-400 text-sm transform transition-transform duration-200" style={{ transform: isBoolOpen ? 'rotate(180deg)' : 'rotate(0deg)' }}>
+                                            ▼
+                                        </span>
+                                    </button>
+
+                                    {isBoolOpen && (
+
+                                        <div className="px-5 pb-6 pt-2 border-t border-slate-800/60 text-slate-300 text-sm leading-relaxed space-y-4 bg-slate-950/50">
+                                            {/* Instanciamos nuestro nuevo componente aquí */}
+                                            <BooleanSetSortNdarrays />
+                                        </div>
+                                    )}
+                                </div>
+
+                                <div className="bg-slate-900 border border-slate-800 rounded-xl overflow-hidden mt-4">
+                                    <button
+                                        onClick={() => setIsArithmeticBroadcastingNdarraysOpen(!isArithmeticBroadcastingNdarraysOpen)}
+                                        className="w-full px-5 py-4 flex items-center justify-between text-left hover:bg-slate-800/40 transition"
+                                    >
+                                        <div className="flex items-center space-x-3">
+                                            <span className="text-emerald-400 font-mono font-bold text-lg">3.13.</span>
+                                            <span className="font-semibold text-white text-lg">Broadcasting</span>
+                                        </div>
+                                        <span className="text-slate-400 text-sm transform transition-transform duration-200" style={{ transform: isArithmeticBroadcastingNdarraysOpen ? 'rotate(180deg)' : 'rotate(0deg)' }}>
+                                            ▼
+                                        </span>
+                                    </button>
+
+                                    {isArithmeticBroadcastingNdarraysOpen && (
+
+                                        <div className="px-5 pb-6 pt-2 border-t border-slate-800/60 text-slate-300 text-sm leading-relaxed space-y-4 bg-slate-950/50">
+                                            {/* Instanciamos nuestro nuevo componente aquí */}
+                                            <ArithmeticBroadcastingNdarrays />
+                                        </div>
+                                    )}
+                                </div>
+
 
 
                             </div>
