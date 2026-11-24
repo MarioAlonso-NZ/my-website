@@ -93,7 +93,7 @@ export default function ReactIntroPage() {
           &larr; Back to Jop's Knowledge Arcade
         </Link>
         <div className="mt-4 inline-block bg-cyan-500/10 text-cyan-400 px-3 py-1 rounded-full text-xs uppercase tracking-wider font-semibold">
-          Frontend Architecture / React State
+          Web development
         </div>
         <h1 className="text-4xl font-extrabold mt-3 tracking-tight">React setState & The Asynchrony Trap</h1>
         <p className="text-slate-400 text-sm mt-1">An interactive visual essay inspired by Sam Who's deep dives.</p>

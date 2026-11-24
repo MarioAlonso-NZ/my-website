@@ -32,6 +32,17 @@ import AccessDeleteInsertNdarrays from './components/AccessDeleteInsertNdarrays'
 import SlicingNdarrays from './components/SlicingNdarrays';
 import BooleanSetSortNdarrays from './components/BooleanSetSortNdarrays';
 import ArithmeticBroadcastingNdarrays from './components/ArithmeticBroadcastingNdarrays';
+import NumpyGlossary from './components/NumpyGlossary';
+import NumpyMiniProject from './components/NumpyMiniProject';
+import MeanNormalizationDataSeparation from './components/MeanNormalizationDataSeparation';
+// #endregion
+
+// #region section 4
+import IntroductionToPandas from './components/pandas/IntroductionToPandas';
+import CreatingPandasSeries from './components/pandas/CreatingPandasSeries';
+import AccessingDeletingPandasSeries from './components/pandas/AccessingDeletingPandasSeries';
+import ArithmeticOperationsPandasSeries from './components/pandas/ArithmeticOperationsPandasSeries';
+import SunPlanetsPractice from './components/pandas/SunPlanetsPractice';
 // #endregion
 
 export default function DataScienceCoursePage() {
@@ -57,7 +68,7 @@ export default function DataScienceCoursePage() {
     const [isJupyterWorkspaceOverviewOpen, setIsJupyterWorkspaceOverviewOpen] = useState(false)
     // #endregion
 
-    // #region
+    // #region Third section
     const [isNumpyOpen, setIsNumpyOpen] = useState(false)
     const [isNumpyInstructorOpen, setIsNumpyInstructorOpen] = useState(false)
     const [isWhyUseNumpyOpen, setIsWhyUseNumpyOpen] = useState(false)
@@ -67,6 +78,18 @@ export default function DataScienceCoursePage() {
     const [isSlicingOpen, setIsSlicingOpen] = useState(false)
     const [isBoolOpen, setIsBoolOpen] = useState(false)
     const [isArithmeticBroadcastingNdarraysOpen, setIsArithmeticBroadcastingNdarraysOpen] = useState(false)
+    const [isGlossaryOpen, setIsGlossaryOpen] = useState(false)
+    const [isProjectOpen, setIsProjectOpen] = useState(false)
+    const [isMeanNormOpen, setIsMeanNormOpen] = useState(false)
+    // #endregion
+
+    // #region Fourth section
+    const [isPandasOpen, setIsPandasOpen] = useState(false)
+    const [isPandasIntroOpen, setIsPandasIntroOpen] = useState(false)
+    const [isPandasSeriesOpen, setIsPandasSeriesOpen] = useState(false)
+    const [isAccessDelOpen, setIsAccessDelOpen] = useState(false)
+    const [isArithmeticOpsOpen, setIsArithmeticOpsOpen] = useState(false)
+    const [isSunPlanetsOpen, setIsSunPlanetsOpen] = useState(false)
     // #endregion
 
     return (
@@ -281,6 +304,7 @@ export default function DataScienceCoursePage() {
                         )}
                     </div>
 
+                    {/* Módulo 2: Jupyter */}
                     <div className="bg-slate-900 border border-slate-800 rounded-2xl shadow-2xl overflow-hidden mb-12">
                         <button
                             onClick={() => setIsSection2Open(!isSection2Open)}
@@ -515,6 +539,7 @@ export default function DataScienceCoursePage() {
                         )}
                     </div>
 
+                    {/* Módulo 3: Numpy */}
                     <div className="bg-slate-900 border border-slate-800 rounded-2xl shadow-2xl overflow-hidden mb-12">
                         <button
                             onClick={() => setIsNumpyOpen(!isNumpyOpen)}
@@ -744,10 +769,219 @@ export default function DataScienceCoursePage() {
                                     )}
                                 </div>
 
+                                <div className="bg-slate-900 border border-slate-800 rounded-xl overflow-hidden mt-4">
+                                    <button
+                                        onClick={() => setIsGlossaryOpen(!isGlossaryOpen)}
+                                        className="w-full px-5 py-4 flex items-center justify-between text-left hover:bg-slate-800/40 transition"
+                                    >
+                                        <div className="flex items-center space-x-3">
+                                            <span className="text-emerald-400 font-mono font-bold text-lg">3.14.</span>
+                                            <span className="font-semibold text-white text-lg">Glossary</span>
+                                        </div>
+                                        <span className="text-slate-400 text-sm transform transition-transform duration-200" style={{ transform: isGlossaryOpen ? 'rotate(180deg)' : 'rotate(0deg)' }}>
+                                            ▼
+                                        </span>
+                                    </button>
+
+                                    {isGlossaryOpen && (
+
+                                        <div className="px-5 pb-6 pt-2 border-t border-slate-800/60 text-slate-300 text-sm leading-relaxed space-y-4 bg-slate-950/50">
+                                            {/* Instanciamos nuestro nuevo componente aquí */}
+                                            <NumpyGlossary />
+                                        </div>
+                                    )}
+                                </div>
+
+                                <div className="bg-slate-900 border border-slate-800 rounded-xl overflow-hidden mt-4">
+                                    <button
+                                        onClick={() => setIsProjectOpen(!isProjectOpen)}
+                                        className="w-full px-5 py-4 flex items-center justify-between text-left hover:bg-slate-800/40 transition"
+                                    >
+                                        <div className="flex items-center space-x-3">
+                                            <span className="text-emerald-400 font-mono font-bold text-lg">3.15.</span>
+                                            <span className="font-semibold text-white text-lg">Project</span>
+                                        </div>
+                                        <span className="text-slate-400 text-sm transform transition-transform duration-200" style={{ transform: isProjectOpen ? 'rotate(180deg)' : 'rotate(0deg)' }}>
+                                            ▼
+                                        </span>
+                                    </button>
+
+                                    {isProjectOpen && (
+
+                                        <div className="px-5 pb-6 pt-2 border-t border-slate-800/60 text-slate-300 text-sm leading-relaxed space-y-4 bg-slate-950/50">
+                                            {/* Instanciamos nuestro nuevo componente aquí */}
+                                            <NumpyMiniProject />
+                                        </div>
+                                    )}
+                                </div>
+
+                                <div className="bg-slate-900 border border-slate-800 rounded-xl overflow-hidden mt-4">
+                                    <button
+                                        onClick={() => setIsMeanNormOpen(!isMeanNormOpen)}
+                                        className="w-full px-5 py-4 flex items-center justify-between text-left hover:bg-slate-800/40 transition"
+                                    >
+                                        <div className="flex items-center space-x-3">
+                                            <span className="text-emerald-400 font-mono font-bold text-lg">3.17.</span>
+                                            <span className="font-semibold text-white text-lg">Project</span>
+                                        </div>
+                                        <span className="text-slate-400 text-sm transform transition-transform duration-200" style={{ transform: isMeanNormOpen ? 'rotate(180deg)' : 'rotate(0deg)' }}>
+                                            ▼
+                                        </span>
+                                    </button>
+
+                                    {isMeanNormOpen && (
+
+                                        <div className="px-5 pb-6 pt-2 border-t border-slate-800/60 text-slate-300 text-sm leading-relaxed space-y-4 bg-slate-950/50">
+                                            {/* Instanciamos nuestro nuevo componente aquí */}
+                                            <MeanNormalizationDataSeparation />
+                                        </div>
+                                    )}
+                                </div>
+                            </div>
+                        )}
+                    </div>
+
+                    <div className="bg-slate-900 border border-slate-800 rounded-2xl shadow-2xl overflow-hidden mb-12">
+                        <button
+                            onClick={() => setIsPandasOpen(!isPandasOpen)}
+                            className="w-full px-6 py-5 flex items-center justify-between text-left bg-slate-900 hover:bg-slate-800/60 transition border-b border-slate-800/80"
+                        >
+                            <div className="flex items-center space-x-4">
+                                <div className="w-10 h-10 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 flex items-center justify-center font-mono text-base font-bold">
+                                    4
+                                </div>
+                                <span className="text-xl font-bold text-white tracking-tight">Pandas</span>
+                            </div>
+                            <span
+                                className="text-slate-400 text-sm transform transition-transform duration-200"
+                                style={{ transform: isPandasOpen ? 'rotate(180deg)' : 'rotate(0deg)' }}
+                            >
+                                ▼
+                            </span>
+                        </button>
+
+                        {isPandasOpen && (
+                            <div className="p-6 space-y-6 bg-slate-950/40">
+
+                                <div className="bg-slate-900 border border-slate-800 rounded-xl overflow-hidden mt-4">
+                                    <button
+                                        onClick={() => setIsPandasIntroOpen(!isPandasIntroOpen)}
+                                        className="w-full px-5 py-4 flex items-center justify-between text-left hover:bg-slate-800/40 transition"
+                                    >
+                                        <div className="flex items-center space-x-3">
+                                            <span className="text-emerald-400 font-mono font-bold text-lg">4.1.</span>
+                                            <span className="font-semibold text-white text-lg">Pandas Intro</span>
+                                        </div>
+                                        <span className="text-slate-400 text-sm transform transition-transform duration-200" style={{ transform: isPandasIntroOpen ? 'rotate(180deg)' : 'rotate(0deg)' }}>
+                                            ▼
+                                        </span>
+                                    </button>
+
+                                    {isPandasIntroOpen && (
+
+                                        <div className="px-5 pb-6 pt-2 border-t border-slate-800/60 text-slate-300 text-sm leading-relaxed space-y-4 bg-slate-950/50">
+                                            {/* Instanciamos nuestro nuevo componente aquí */}
+                                            <IntroductionToPandas />
+                                        </div>
+                                    )}
+                                </div>
+
+                                <div className="bg-slate-900 border border-slate-800 rounded-xl overflow-hidden mt-4">
+                                    <button
+                                        onClick={() => setIsPandasSeriesOpen(!isPandasSeriesOpen)}
+                                        className="w-full px-5 py-4 flex items-center justify-between text-left hover:bg-slate-800/40 transition"
+                                    >
+                                        <div className="flex items-center space-x-3">
+                                            <span className="text-emerald-400 font-mono font-bold text-lg">4.2.</span>
+                                            <span className="font-semibold text-white text-lg">Pandas Series</span>
+                                        </div>
+                                        <span className="text-slate-400 text-sm transform transition-transform duration-200" style={{ transform: isPandasSeriesOpen ? 'rotate(180deg)' : 'rotate(0deg)' }}>
+                                            ▼
+                                        </span>
+                                    </button>
+
+                                    {isPandasSeriesOpen && (
+
+                                        <div className="px-5 pb-6 pt-2 border-t border-slate-800/60 text-slate-300 text-sm leading-relaxed space-y-4 bg-slate-950/50">
+                                            {/* Instanciamos nuestro nuevo componente aquí */}
+                                            <CreatingPandasSeries />
+                                        </div>
+                                    )}
+                                </div>
+
+                                <div className="bg-slate-900 border border-slate-800 rounded-xl overflow-hidden mt-4">
+                                    <button
+                                        onClick={() => setIsAccessDelOpen(!isAccessDelOpen)}
+                                        className="w-full px-5 py-4 flex items-center justify-between text-left hover:bg-slate-800/40 transition"
+                                    >
+                                        <div className="flex items-center space-x-3">
+                                            <span className="text-emerald-400 font-mono font-bold text-lg">4.3.</span>
+                                            <span className="font-semibold text-white text-lg">Access and Deleting Pandas Series</span>
+                                        </div>
+                                        <span className="text-slate-400 text-sm transform transition-transform duration-200" style={{ transform: isAccessDelOpen ? 'rotate(180deg)' : 'rotate(0deg)' }}>
+                                            ▼
+                                        </span>
+                                    </button>
+
+                                    {isAccessDelOpen && (
+
+                                        <div className="px-5 pb-6 pt-2 border-t border-slate-800/60 text-slate-300 text-sm leading-relaxed space-y-4 bg-slate-950/50">
+                                            {/* Instanciamos nuestro nuevo componente aquí */}
+                                            <AccessingDeletingPandasSeries />
+                                        </div>
+                                    )}
+                                </div>
+
+                                <div className="bg-slate-900 border border-slate-800 rounded-xl overflow-hidden mt-4">
+                                    <button
+                                        onClick={() => setIsArithmeticOpsOpen(!isArithmeticOpsOpen)}
+                                        className="w-full px-5 py-4 flex items-center justify-between text-left hover:bg-slate-800/40 transition"
+                                    >
+                                        <div className="flex items-center space-x-3">
+                                            <span className="text-emerald-400 font-mono font-bold text-lg">4.4.</span>
+                                            <span className="font-semibold text-white text-lg">Arihtmetic operations</span>
+                                        </div>
+                                        <span className="text-slate-400 text-sm transform transition-transform duration-200" style={{ transform: isArithmeticOpsOpen ? 'rotate(180deg)' : 'rotate(0deg)' }}>
+                                            ▼
+                                        </span>
+                                    </button>
+
+                                    {isArithmeticOpsOpen && (
+
+                                        <div className="px-5 pb-6 pt-2 border-t border-slate-800/60 text-slate-300 text-sm leading-relaxed space-y-4 bg-slate-950/50">
+                                            {/* Instanciamos nuestro nuevo componente aquí */}
+                                            <ArithmeticOperationsPandasSeries />
+                                        </div>
+                                    )}
+                                </div>
+
+                                <div className="bg-slate-900 border border-slate-800 rounded-xl overflow-hidden mt-4">
+                                    <button
+                                        onClick={() => setIsSunPlanetsOpen(!isSunPlanetsOpen)}
+                                        className="w-full px-5 py-4 flex items-center justify-between text-left hover:bg-slate-800/40 transition"
+                                    >
+                                        <div className="flex items-center space-x-3">
+                                            <span className="text-emerald-400 font-mono font-bold text-lg">4.5.</span>
+                                            <span className="font-semibold text-white text-lg">Sun planets practice</span>
+                                        </div>
+                                        <span className="text-slate-400 text-sm transform transition-transform duration-200" style={{ transform: isSunPlanetsOpen ? 'rotate(180deg)' : 'rotate(0deg)' }}>
+                                            ▼
+                                        </span>
+                                    </button>
+
+                                    {isSunPlanetsOpen && (
+
+                                        <div className="px-5 pb-6 pt-2 border-t border-slate-800/60 text-slate-300 text-sm leading-relaxed space-y-4 bg-slate-950/50">
+                                            {/* Instanciamos nuestro nuevo componente aquí */}
+                                            <SunPlanetsPractice />
+                                        </div>
+                                    )}
+                                </div>
 
 
                             </div>
                         )}
+
                     </div>
 
                 </main>

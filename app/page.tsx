@@ -39,6 +39,23 @@ export default function ArcadeHomeCards() {
           </div>
         </Link>
 
+        <Link href="/courses/web-development" className="group">
+          <div className="bg-slate-900 border border-slate-800 hover:border-cyan-500 rounded-3xl p-8 shadow-2xl transition-all duration-300 transform group-hover:-translate-y-2 group-hover:shadow-cyan-500/10 flex flex-col items-center text-center h-full">
+            <div className="w-16 h-16 rounded-2xl bg-cyan-500/10 text-cyan-400 flex items-center justify-center text-3xl font-bold mb-6 border border-cyan-500/20 group-hover:scale-110 transition">
+              🌐
+            </div>
+            <h2 className="text-2xl font-bold text-white mb-2 group-hover:text-cyan-400 transition">
+              Web Development
+            </h2>
+            <p className="text-slate-400 text-sm leading-relaxed mb-6">
+              Arquitecture, UI, UX, sunchronims, etc
+            </p>
+            <span className="mt-auto text-xs font-mono text-cyan-400 font-semibold flex items-center">
+              Explore modules &rarr;
+            </span>
+          </div>
+        </Link>
+
         {/* TARJETA 2: PYTHON */}
         <Link href="/courses/AWS-AI-Programmer" className="group">
           <div className="bg-slate-900 border border-slate-800 hover:border-purple-500 rounded-3xl p-8 shadow-2xl transition-all duration-300 transform group-hover:-translate-y-2 group-hover:shadow-purple-500/10 flex flex-col items-center text-center h-full">
